@@ -7,6 +7,7 @@ module.exports = {
         path: path.join(__dirname, '/dist'),
         filename: 'bundle.js',
     },
+    devtool:'source-map',
     devServer: {
         // static: {
         //   directory: path.resolve(__dirname, 'src/dist'),
