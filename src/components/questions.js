@@ -7,7 +7,10 @@ const questions = (props)=> {
 
   const optionsElementsArray = props.data.options.map((el,i) => <Options 
             key={i} 
-            option={el}              
+            option={el}
+            questionId={props.data.id}   
+            getQuestionIdAndOption={props.getQuestionIdAndOption}   
+            data={props.data}        
             />)
 
   return (

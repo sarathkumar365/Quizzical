@@ -15,9 +15,6 @@ const [appState,setAppState] = useState({
 
 const [questions,setQuestions] = useState([])
 
-const [selected,setSelected] = useState([])
-
-
 
 useEffect(()=>{
   getQuestions();
@@ -43,7 +40,8 @@ const getQuestions = async ()=>{
       id:nanoid(),
       question:data.question,
       options:[...data.incorrect_answers],
-      correct_answer:data.correct_answer
+      correct_answer:data.correct_answer,
+      selected:false
     }
 
     q.options.splice(randomPosition, 0, data.correct_answer)
@@ -53,12 +51,23 @@ const getQuestions = async ()=>{
 
 setQuestions(questionsAndAnswers)
 }
+// console.log(questions);
 
+function getQuestionIdAndOption (data) {
+  // console.log(data);
+  const updatedQuestions = questions.map(el => {
+    if(data.questionId === el.id) el.selected = data.selectedOption;
+    return el
+  })
+  
+ setQuestions(updatedQuestions);
+
+}
 
 return (
   <div className="App">
     { !appState.status ? <HomePage appStatus={appStatus}/> :  
-      questions.map((data,i) => <Questions key={i} data={data} />)
+      questions.map((data,i) => <Questions key={i} getQuestionIdAndOption={getQuestionIdAndOption} data={data} />)
      }
   </div>
 
