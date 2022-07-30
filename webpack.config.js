@@ -12,7 +12,7 @@ module.exports = {
         // static: {
         //   directory: path.resolve(__dirname, 'src/dist'),
         // },
-        port: 3300,
+        port: 3000,
         open: {
           app: {
             name: 'google-chrome',

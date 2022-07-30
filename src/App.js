@@ -4,6 +4,7 @@ import React from 'react';
 import { useState,useEffect } from 'react';
 import Questions from './components/questions';
 import HomePage from './components/homePage'
+import Footer from './components/footer.js'
 
 function App() {
 
@@ -41,7 +42,8 @@ const getQuestions = async ()=>{
       question:data.question,
       options:[...data.incorrect_answers],
       correct_answer:data.correct_answer,
-      selected:false
+      selected:false,
+      isCorrect:null
     }
 
     q.options.splice(randomPosition, 0, data.correct_answer)
@@ -64,10 +66,26 @@ function getQuestionIdAndOption (data) {
 
 }
 
+function checkAnwers () {
+  console.log(questions);
+  const stylesUpdatedQuestions = questions.map(el => {
+    el.selected === el.correct_answer ? el.isCorrect=true : el.isCorrect=false;
+    return el
+  })
+  
+
+  setQuestions(stylesUpdatedQuestions);
+}
+
+console.log(questions);
+
 return (
   <div className="App">
     { !appState.status ? <HomePage appStatus={appStatus}/> :  
       questions.map((data,i) => <Questions key={i} getQuestionIdAndOption={getQuestionIdAndOption} data={data} />)
+     }
+     {
+      !appState.status ? "" : <Footer checkAnwers={checkAnwers}/>
      }
   </div>
 
