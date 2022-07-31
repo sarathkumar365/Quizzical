@@ -11,7 +11,7 @@ function App() {
   const triviaURL = 'https://opentdb.com/api.php?amount=10&category=30&type=multiple'
 
 const [appState,setAppState] = useState({
-  status:false
+  status:false,
 })
 
 const [questions,setQuestions] = useState([])
@@ -43,7 +43,7 @@ const getQuestions = async ()=>{
       options:[...data.incorrect_answers],
       correct_answer:data.correct_answer,
       selected:false,
-      isCorrect:null
+      isCorrect:null,
     }
 
     q.options.splice(randomPosition, 0, data.correct_answer)
@@ -67,7 +67,6 @@ function getQuestionIdAndOption (data) {
 }
 
 function checkAnwers () {
-  console.log(questions);
   const stylesUpdatedQuestions = questions.map(el => {
     el.selected === el.correct_answer ? el.isCorrect=true : el.isCorrect=false;
     return el
@@ -77,12 +76,15 @@ function checkAnwers () {
   setQuestions(stylesUpdatedQuestions);
 }
 
-console.log(questions);
+function answersChecked () {
+  return
+}
+
 
 return (
   <div className="App">
     { !appState.status ? <HomePage appStatus={appStatus}/> :  
-      questions.map((data,i) => <Questions key={i} getQuestionIdAndOption={getQuestionIdAndOption} data={data} />)
+      questions.map((data,i) => <Questions key={i} getQuestionIdAndOption={getQuestionIdAndOption} data={data} answersChecked={answersChecked}/>)
      }
      {
       !appState.status ? "" : <Footer checkAnwers={checkAnwers}/>

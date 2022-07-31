@@ -9,8 +9,9 @@ const questions = (props)=> {
             key={i} 
             option={el}
             questionId={props.data.id}   
-            getQuestionIdAndOption={props.getQuestionIdAndOption}   
-            data={props.data}        
+            getQuestionIdAndOption={(props.data.isCorrect === null) ? props.getQuestionIdAndOption : props.answersChecked}   
+            data={props.data}  
+                 
             />)
 
   return (
