@@ -12,6 +12,7 @@ function App() {
 
 const [appState,setAppState] = useState({
   status:false,
+  finished:false
 })
 
 const [questions,setQuestions] = useState([])
@@ -74,10 +75,24 @@ function checkAnwers () {
   
 
   setQuestions(stylesUpdatedQuestions);
+
+  setAppState(oldVal => {
+    return (
+      {
+        ...oldVal,
+        finished: true
+      }
+    )
+  })
 }
+
 
 function answersChecked () {
   return
+}
+
+const resetGame = () => {
+  window.location.reload(true);
 }
 
 
@@ -87,7 +102,7 @@ return (
       questions.map((data,i) => <Questions key={i} getQuestionIdAndOption={getQuestionIdAndOption} data={data} answersChecked={answersChecked}/>)
      }
      {
-      !appState.status ? "" : <Footer checkAnwers={checkAnwers}/>
+      !appState.status ? "" : <Footer finished={appState.finished} resetGame = {resetGame} checkAnwers={checkAnwers}/>
      }
   </div>
 
