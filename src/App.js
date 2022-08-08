@@ -17,6 +17,8 @@ const [appState,setAppState] = useState({
 
 const [questions,setQuestions] = useState([])
 
+const [correctAns, setCorrectAns] = useState(0)
+
 
 useEffect(()=>{
   getQuestions();
@@ -76,6 +78,15 @@ function checkAnwers () {
 
   setQuestions(stylesUpdatedQuestions);
 
+ questions.forEach(el => {
+  if(el.isCorrect) {
+    setCorrectAns(oldVal => {
+      return oldVal +1 
+    })
+  }
+ })
+
+
   setAppState(oldVal => {
     return (
       {
@@ -84,6 +95,7 @@ function checkAnwers () {
       }
     )
   })
+
 }
 
 
@@ -102,7 +114,7 @@ return (
       questions.map((data,i) => <Questions key={i} getQuestionIdAndOption={getQuestionIdAndOption} data={data} answersChecked={answersChecked}/>)
      }
      {
-      !appState.status ? "" : <Footer finished={appState.finished} resetGame = {resetGame} checkAnwers={checkAnwers}/>
+      !appState.status ? "" : <Footer finished={appState.finished} correctAns={correctAns } resetGame = {resetGame} checkAnwers={checkAnwers}/>
      }
   </div>
 

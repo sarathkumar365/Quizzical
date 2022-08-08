@@ -251,3 +251,8 @@ body{
   border: none !important;
 
 }
+
+.score {
+  background: none !important;
+  color: #4D5B9E !important;
+}
